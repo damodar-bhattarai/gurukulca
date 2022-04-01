@@ -1,0 +1,25 @@
+=============================================================
+2022-Feb-15
+- design integration work in progress
+- sliders and testimonials can be added via admin dashboard
+- branch request registration form on frontend
+- accept/reject branch request by admin
+- default password is "password"
+=============================================================
+2022-Feb-14
+- branch registration request & accept or deny by admin on backend
+- testimonials backend
+- sliders backend
+* implemention on frontend is remaining
+=============================================================
+2022-Feb-13
+- comments can be added, edited or deleted on order
+- tracking details can be added , updated, deleted
+- it shows if the original comment was updated or not
+=============================================================
+
+2022-Feb-12
+- Now order details & tracking details can be viewed
+- Order can be sorted on order table by clicking on headers
+
+=============================================================
