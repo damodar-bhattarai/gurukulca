@@ -17,7 +17,8 @@
                  <div class="aside-logo flex-column-auto justify-content-center" id="kt_aside_logo">
                      <!--begin::Logo-->
                      <a href="{{ url('/') }}">
-                         <img alt="Logo" src="{{ footerLogoUrl() }}" class="h-60px logo" />
+                         {{-- <img alt="Logo" src="{{ footerLogoUrl() }}" class="h-60px logo" /> --}}
+                         <p style="font-size: 2rem;" class="text-light px-4">Gurukul CA</p>
                      </a>
                      <!--end::Logo-->
                      <!--begin::Aside toggler-->
@@ -72,300 +73,98 @@
                                     <span class="menu-title">Dashboard</span>
                                 </a>
                             </div>
-                            @role('admin')
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.orders.blank') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Blank Order</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.notices.index') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Notices</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.contacts.index') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Contacts</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.quotations.index') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Quotations</span>
-                                </a>
-                            </div>
-                            @endrole
-
-
-
-                            <div class="menu-item">
-                                <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Orders & Payments</span>
-                                </div>
-                            </div>
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
-                                                    fill="black" />
-                                                <path
-                                                    d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z"
-                                                    fill="black" />
-                                                <path opacity="0.3"
-                                                    d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z"
-                                                    fill="black" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Order</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                               <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.orders.create') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Create Order</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.orders.index') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Orders List</span>
-                                        </a>
-                                    </div>
-                               </div>
-                            </div>
-
-                            @role('admin|branch')
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.payments') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Pending Payments</span>
-                                </a>
-                            </div>
-                            @endrole
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.payments.index') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">All Payments</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Customers & Tickets</span>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.customers.index') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Customers</span>
-                                </a>
-                            </div>
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
-                                                    fill="black" />
-                                                <path
-                                                    d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z"
-                                                    fill="black" />
-                                                <path opacity="0.3"
-                                                    d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z"
-                                                    fill="black" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Ticket</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                               <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.tickets.create') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Create Ticket</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.tickets.index') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Ticket List</span>
-                                        </a>
-                                    </div>
-                               </div>
-                            </div>
-
-                            @role('admin')
-                            <div class="menu-item">
-                                <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Tracking Status</span>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.status.index') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Tracking Status</span>
-                                </a>
-                            </div>
-                            @endrole
-
-
 
 
                             @role('admin')
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('backend.subjects') }}">
+                                    <span class="menu-icon">
+                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                     <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                        </svg>
+                                    </span>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <span class="menu-title">Subjects</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('backend.batches') }}">
+                                    <span class="menu-icon">
+                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                     <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                        </svg>
+                                    </span>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <span class="menu-title">Batches</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('backend.routines.save') }}">
+                                    <span class="menu-icon">
+                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                     <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                        </svg>
+                                    </span>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <span class="menu-title">Add Routine</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('backend.routines.index') }}">
+                                    <span class="menu-icon">
+                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                     <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                        </svg>
+                                    </span>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <span class="menu-title">View Routine</span>
+                                </a>
+                            </div>
+
+
                              <div class="menu-item">
                                 <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Branch & Users</span>
+                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Teacher & Students</span>
                                 </div>
                             </div>
 
@@ -389,28 +188,38 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                     </span>
-                                    <span class="menu-title">Branch & Customers</span>
+                                    <span class="menu-title">Manage Users</span>
                                     <span class="menu-arrow"></span>
                                 </span>
                                <div class="menu-sub menu-sub-accordion menu-active-bg">
                                     <div class="menu-item">
                                         <a class="menu-link"
-                                           href="{{ route('backend.user.index') }}"
+                                           href="{{ route('backend.user.admins') }}"
                                            >
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
-                                            <span class="menu-title">Users List</span>
+                                            <span class="menu-title">Admin List</span>
                                         </a>
                                     </div>
                                     <div class="menu-item">
                                         <a class="menu-link"
-                                           href="{{ route('backend.branch.index') }}"
+                                           href="{{ route('backend.user.teachers') }}"
                                            >
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
-                                            <span class="menu-title">Branches List</span>
+                                            <span class="menu-title">Teacher List</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item">
+                                        <a class="menu-link"
+                                           href="{{ route('backend.user.students') }}"
+                                           >
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Student List</span>
                                         </a>
                                     </div>
                                     <div class="menu-item">
@@ -420,167 +229,18 @@
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
-                                            <span class="menu-title">Add User/Branch</span>
+                                            <span class="menu-title">Add User</span>
                                         </a>
                                     </div>
                                </div>
                             </div>
 
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('backend.user.requests') }}">
-                                    <span class="menu-icon">
-                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                                fill="black" />
-                                        </svg>
-                                    </span>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <span class="menu-title">Branch Requests</span>
-                                </a>
-                            </div>
                             @endrole
 
-                            @role('admin')
-                            <div class="menu-item">
-                                <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">CMS</span>
-                                </div>
-                            </div>
 
 
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
-                                                    fill="black" />
-                                                <path
-                                                    d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z"
-                                                    fill="black" />
-                                                <path opacity="0.3"
-                                                    d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z"
-                                                    fill="black" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Manage Contents</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                               <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.sliders.index') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Sliders</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.testimonials.index') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Testimonials</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.services.index') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Services</span>
-                                        </a>
-                                    </div>
-                               </div>
-                            </div>
-                            @endrole
-
-                            @role('admin')
-                            <div class="menu-item">
-                                <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Website Management</span>
-                                </div>
-                            </div>
 
 
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
-                                                    fill="black" />
-                                                <path
-                                                    d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z"
-                                                    fill="black" />
-                                                <path opacity="0.3"
-                                                    d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z"
-                                                    fill="black" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Website Settings</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                               <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="{{ route('backend.settings.general') }}"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">General Settings</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="#"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">APIs</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                           href="#"
-                                           >
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Code Injector</span>
-                                        </a>
-
-                                    </div>
-                               </div>
-                            </div>
-                            @endrole
                          </div>
                          <!--end::Menu-->
                      </div>
@@ -629,9 +289,6 @@
                          <div class="d-flex align-items-center justify-content-between flex-lg-grow-1">
                              <!--begin::Navbar-->
                              <div class="d-flex d-none d-md-block align-items-center w-full" id="kt_header_nav">
-                                 <a href="{{ route('backend.orders.create') }}" class="mx-2 badge badge-success text-white"> <i class="fas fa-plus text-white"></i> Create Order </a>
-                                 <a href="{{ route('backend.orders.createBulk') }}" class="mx-2 badge badge-primary text-white"> <i class="fas fa-plus-circle text-white"></i><i class="fas fa-plus-circle text-white"></i> Create Bulk Orders </a>
-                                 <a href="{{ route('backend.orders.index') }}" class="mx-2 badge badge-info text-white"> <i class="fas fa-eye text-white"></i> View Orders </a>
                              </div>
                              <!--end::Navbar-->
                              <!--begin::Toolbar wrapper-->
@@ -639,10 +296,7 @@
                                  <!--begin::User menu-->
                                  <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                      <div class="mx-3 px-3">
-                                         <a class="" href="{{ route('backend.notices.all') }}" title="Notices">
-                                            <i class="text-primary position-relative fas fa-bell fa-2x">
-                                                <span class="position-absolute top-100 start-100 translate-middle  badge badge-circle badge-success">{{ App\Models\Notice::active()->count() }}</span>
-                                            </i>
+
                                         </a>
                                       </div>
                                      <!--begin::Menu wrapper-->

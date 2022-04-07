@@ -40,6 +40,9 @@
                 color: #5e6278;
                 transition: color .2s ease,background-color .2s ease;
             }
+            .livewire-table thead tr th{
+                cursor: pointer;
+            }
         </style>
          @livewireStyles
 

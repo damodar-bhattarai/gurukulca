@@ -1,6 +1,8 @@
 @extends('backend.layouts.backend')
 @section('content')
 
-@livewire('backend.users-list')
+<div class="m-0 p-0">
+    @livewire('backend.manage-batch')
+</div>
 
 @endsection

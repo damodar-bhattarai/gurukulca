@@ -18,13 +18,7 @@ class UserObserver
 
     public function created(User $user)
     {
-        $data=[
-            'name'=>$user->name,
-            'email'=>$user->email,
-            'password'=>'Namaste@'.(int)$user->phone
-        ];
 
-        Mail::to($user)->send(new AccountCreated($data));
     }
 
     /**

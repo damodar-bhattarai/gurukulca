@@ -19,9 +19,38 @@ use Illuminate\Support\Facades\Route;
 
         Route::middleware(['role:admin'])->group(function () {
 
-            //user lists
-            Route::get('users',[DashboardController::class,'users'])->name('user.index');
-            Route::get('users/create',[DashboardController::class,'usersCreate'])->name('user.create');
+            Route::get('routines',function(){
+                return view('backend.livewire-pages.view-routine');
+            })->name('routines.index');
+
+            Route::get('routines/save/{routine_id?}',function($routine_id=null){
+                return view('backend.livewire-pages.manage-routine',compact('routine_id'));
+            })->name('routines.save');
+
+            Route::get('subjects',function(){
+                return view('backend.livewire-pages.subject');
+            })->name('subjects');
+
+            Route::get('batches',function(){
+                return view('backend.livewire-pages.batch');
+            })->name('batches');
+
+            Route::get('admins',function(){
+                return view('backend.livewire-pages.list-user',['type'=>'admin']);
+            })->name('user.admins');
+
+            Route::get('teachers',function(){
+                return view('backend.livewire-pages.list-user',['type'=>'teacher']);
+            })->name('user.teachers');
+
+            Route::get('students',function(){
+                return view('backend.livewire-pages.list-user',['type'=>'student']);
+            })->name('user.students');
+
+            Route::get('user/save',function(){
+                return view('backend.livewire-pages.create-user');
+            })->name('user.create');
+
         });
 
     });

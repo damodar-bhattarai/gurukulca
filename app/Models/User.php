@@ -41,13 +41,13 @@ class User extends Authenticatable
     ];
 
 
-    function comments(){
-        return $this->hasMany(OrderComment::class);
-    }
+   function batch(){
+       return $this->hasOne(Batch::class,'id','batch_id');
+   }
 
-    function address(){
-        return $this->belongsTo(Address::class);
-    }
+   function subject(){
+       return $this->hasOne(Subject::class,'id','subject_id');
+   }
 
 
 }

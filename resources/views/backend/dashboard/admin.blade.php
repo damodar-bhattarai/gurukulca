@@ -1,6 +1,4 @@
 @extends('backend.layouts.backend')
 @section('content')
-
-@livewire('backend.branches-list')
-
+    @livewire('backend.view-routine')
 @endsection

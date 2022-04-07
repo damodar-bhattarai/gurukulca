@@ -17,27 +17,21 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $admin=Role::firstOrCreate(['name'=>'admin']);
-        $branch=Role::firstOrCreate(['name'=>'branch']);
-        $customer=Role::firstOrCreate(['name'=>'customer']);
+        $teacher=Role::firstOrCreate(['name'=>'teacher']);
+        $student=Role::firstOrCreate(['name'=>'student']);
 
-        $address=Address::create([
-            'district'=>'Kathmandu',
-            'city'=>'Kathmandu',
-            'street'=>'Kathmandu',
-        ]);
 
-        $person1=User::firstOrCreate([
+        $sa1=User::firstOrCreate([
             'email' => env('APP_EMAIL','admin@example.com'),
         ], [
-            'name'=>'Central Branch',
+            'type'=>'admin',
+            'name'=>'Admin',
             'email' => env('APP_EMAIL','admin@example.com'),
-            'phone'=>'9801006432',
+            'phone'=>'9825710275',
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
-            'address_id'=>$address->id,
         ]);
 
-        $person1->assignRole($admin);
-        $person1->assignRole($branch);
+        $sa1->assignRole($admin);
     }
 }

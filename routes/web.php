@@ -12,4 +12,10 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
+Route::get('/',function(){
+    return redirect(route('login'),302);
+});
+
 require __DIR__.'/auth.php';
