@@ -63,7 +63,7 @@ class ViewRoutine extends Component
             });
         }
 
-        $routines = $routines->latest('routine_date')->paginate(5);
+        $routines = $routines->latest('routine_date')->paginate(10);
 
         if($this->teacher){
             $routines=$routines->map(function ($routine) {
