@@ -43,6 +43,13 @@
             .livewire-table thead tr th{
                 cursor: pointer;
             }
+            thead{
+                text-align: center !important;
+            }
+            tr{
+                text-align: center !important;
+            }
+
         </style>
          @livewireStyles
 
