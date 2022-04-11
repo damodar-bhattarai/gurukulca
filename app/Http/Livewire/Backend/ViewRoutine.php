@@ -31,7 +31,7 @@ class ViewRoutine extends Component
         $routines = $routines->latest('routine_date')->get();
 
         //get max order
-        $max_order = RoutineClass::owned()->max('order');
+        $max_order = RoutineClass::owned()->where('teacher_id','!=',null)->max('order');
 
         return view('livewire.backend.view-routine', compact('max_order', 'routines'));
     }
