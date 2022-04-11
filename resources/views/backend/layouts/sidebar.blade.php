@@ -349,7 +349,7 @@
                                          <!--begin::Menu item-->
                                          <div class="menu-item px-5">
                                              <a href="{{ route('backend.dashboard') }}"
-                                                 class="menu-link px-5">Dashboad</a>
+                                                 class="menu-link px-5">Dashboard</a>
                                          </div>
                                          <div class="menu-item px-5">
                                              <a href="{{ route('backend.user.password') }}"
