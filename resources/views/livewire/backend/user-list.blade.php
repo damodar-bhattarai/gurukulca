@@ -7,6 +7,16 @@
            </div>
        </div>
        <div class="card-body">
+           <div class="card-toolbar">
+               <div class="row">
+                   <div class="col-md-4">
+                       <input type="search" placeholder="Search" wire:model.debounce.500ms="search" class="form-control">
+                   </div>
+                   <div class="col">
+                       <span wire:loading>Searching <i class="fa fa-spin fa-spinner"></i></span>
+                   </div>
+               </div>
+           </div>
            <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover livewire-table">
                      <thead>

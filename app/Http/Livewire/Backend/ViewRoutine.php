@@ -2,17 +2,45 @@
 
 namespace App\Http\Livewire\Backend;
 
+use App\Models\Batch;
 use App\Models\Routine;
 use App\Models\RoutineClass;
+use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ViewRoutine extends Component
 {
-    use LivewireAlert;
+    use LivewireAlert, WithPagination;
 
     public $batch;
     public $routine_date;
+    public $teacher;
+
+    public $batches;
+    public $teachers;
+
+
+    function mount()
+    {
+        $this->batches = Batch::select('id', 'name')->latest()->get();
+        $this->teachers = User::where('type', 'teacher')->latest()->get();
+    }
+
+    function updatedBatch(){
+        $this->resetPage();
+    }
+
+    function updatedRoutineDate(){
+        $this->resetPage();
+    }
+
+    function updatedTeacher(){
+        $this->resetPage();
+    }
+
+
 
     public function render()
     {
@@ -24,11 +52,27 @@ class ViewRoutine extends Component
             return $q->owned();
         }, 'classes.teacher', 'classes.subject'])->owned();
 
+
+
         if ($this->routine_date) {
-            $this->alert('success',$this->routine_date);
             $routines = $routines->where('routine_date', $this->routine_date);
         }
-        $routines = $routines->latest('routine_date')->get();
+        if($this->teacher){
+            $routines = $routines->whereHas('classes', function ($q) {
+                return $q->where('teacher_id', $this->teacher);
+            });
+        }
+
+        $routines = $routines->latest('routine_date')->paginate(5);
+
+        if($this->teacher){
+            $routines=$routines->map(function ($routine) {
+                $routine->classes = $routine->classes->filter(function ($class) {
+                    return $class->teacher_id == $this->teacher;
+                });
+                return $routine;
+            });
+        }
 
         //get max order
         $max_order = RoutineClass::owned()->max('order');

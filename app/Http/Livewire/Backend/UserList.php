@@ -27,8 +27,13 @@ class UserList extends Component
             ->orWhere('email','like','%'.$this->search.'%')
             ->orWhere('batch_id','like','%'.$this->search.'%')
             ->orWhere('phone','like','%'.$this->search.'%')
-            ->orWhere('subject','like','%'.$this->search.'%')
-            ->orWhere('code_name','like','%'.$this->search.'%');
+            ->orWhere('code_name','like','%'.$this->search.'%')
+            ->orWhereHas('batch',function($q){
+                $q->where('name','like','%'.$this->search.'%');
+            })
+            ->orWhereHas('subject',function($q){
+                $q->where('name','like','%'.$this->search.'%');
+            });
         }
 
         if($this->sort_by=='batch'){
