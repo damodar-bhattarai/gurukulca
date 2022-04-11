@@ -23,17 +23,19 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="routine_date">Routine Date <span class="text-danger">*</span> </label>
-                                <input @if($editing) disabled @endif type="date" min="{{ Date('Y-m-d') }}" class="form-control"
-                                    wire:loading.attr="disabled" wire:model.lazy="routine.routine_date"
-                                    id="routine_date" placeholder="Routine Date" required>
+                                <input @if ($editing) disabled @endif type="date"
+                                    min="{{ Date('Y-m-d') }}" class="form-control" wire:loading.attr="disabled"
+                                    wire:model.lazy="routine.routine_date" id="routine_date" placeholder="Routine Date"
+                                    required>
                             </div>
                             @if ($routine->routine_date)
                                 <div class="col-md-6">
                                     <label for="batch_id">Batch <span class="text-danger">*</span> <span wire:loading
                                             wire:target="routine.batch_id" class="text-info">Please Wait <i
                                                 class="fa fa-spin fa-spinner"></i></span> </label>
-                                    <select @if($editing) disabled @endif class="form-control" wire:loading.attr="disabled" id="batch_id"
-                                        wire:model="routine.batch_id" required>
+                                    <select @if ($editing) disabled @endif class="form-control"
+                                        wire:loading.attr="disabled" id="batch_id" wire:model="routine.batch_id"
+                                        required>
                                         <option value="">Select Batch</option>
                                         @foreach ($batches as $batch)
                                             <option value="{{ $batch->id }}">{{ $batch->name }}</option>
@@ -108,12 +110,14 @@
         </div>
     </div>
     <div class="my-4"></div>
+    @if ($routine->routine_date)
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card card-flush">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Routines of Date &nbsp; <span class="badge badge-info">{{ $routine->routine_date }}</span>
+                            Routines of Date &nbsp; <span
+                                class="badge badge-info">{{ $routine->routine_date }}</span>
                         </h3>
 
                     </div>
@@ -161,4 +165,5 @@
                 </div>
             </div>
         </div>
+    @endif
 </div>
