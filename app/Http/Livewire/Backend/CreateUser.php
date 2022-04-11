@@ -20,7 +20,7 @@ class CreateUser extends Component
     protected $rules=[
         'user.type'=>'required|in:student,teacher,admin',
         'user.name'=>'required',
-        'user.email'=>'required|email',
+        'user.email'=>'nullable|email',
         'user.phone'=>'required|digits:10|unique:users,phone',
         'user.parent_phone'=>'nullable|required_if:user.type,student|digits:10',
         'user.subject_id'=>'nullable|required_if:user.type,teacher',

@@ -6,9 +6,9 @@
         font-weight: 600;
     }
 </style>
-    <div class="row">
+    <div class="row justify-content-center">
         @forelse($routines as $date=>$routine)
-        <div class="col-md-12">
+        <div class="col-md-8">
                 <div class="card my-4">
                     <div class="card-header">
                         <h3 class="card-title">

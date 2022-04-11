@@ -1,7 +1,7 @@
  <!--begin::Body-->
 
  <body id="kt_body"
-     class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
+     class="header-fixed header-tablet-and-mobile-fixed  toolbar-enabled toolbar-fixed @role('admin') aside-enabled aside-fixed @endrole "
      style="--kt-toolbar-height:10px;--kt-toolbar-height-tablet-and-mobile:10px">
      <!--begin::Main-->
      <!--begin::Root-->
@@ -9,7 +9,7 @@
          <!--begin::Page-->
          <div class="page d-flex flex-row flex-column-fluid">
              <!--begin::Aside-->
-             <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true"
+             <div id="kt_aside" class=" @role('admin') aside  aside-dark aside-hoverable @endrole" data-kt-drawer="true"
                  data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}"
                  data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}"
                  data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
@@ -18,7 +18,7 @@
                      <!--begin::Logo-->
                      <a href="{{ url('/') }}">
                          {{-- <img alt="Logo" src="{{ footerLogoUrl() }}" class="h-60px logo" /> --}}
-                         <p style="font-size: 2rem;" class="text-light px-4">Gurukul CA</p>
+                         {{-- <p style="font-size: 2rem;" class="text-light px-4">Gurukul CA</p> --}}
                      </a>
                      <!--end::Logo-->
                      <!--begin::Aside toggler-->
@@ -258,6 +258,7 @@
                  <div id="kt_header" style="" class="header align-items-stretch">
                      <!--begin::Container-->
                      <div class="container-fluid d-flex align-items-stretch justify-content-between">
+                         @role('admin')
                          <!--begin::Aside mobile toggle-->
                          <div class="d-flex align-items-center d-lg-none ms-n2 me-2" title="Show aside menu">
                              <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
@@ -278,10 +279,13 @@
                              </div>
                          </div>
                          <!--end::Aside mobile toggle-->
+                         @endrole
                          <!--begin::Mobile logo-->
                          <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                              <a href="{{ url('/') }}" class="d-lg-none">
-                                 <img alt="Logo" src="{{ siteLogoUrl() }}" class="h-30px" />
+                                 {{-- <img alt="Logo" src="{{ siteLogoUrl() }}" class="h-30px" /> --}}
+                                 <p style="font-size: 2rem;" class="text-dark px-4 h-30px">Gurukul CA</p>
+
                              </a>
                          </div>
                          <!--end::Mobile logo-->
@@ -289,6 +293,9 @@
                          <div class="d-flex align-items-center justify-content-between flex-lg-grow-1">
                              <!--begin::Navbar-->
                              <div class="d-flex d-none d-md-block align-items-center w-full" id="kt_header_nav">
+                                <div class="text-center">
+                                 <strong class="h1">Gurukul CA</strong>
+                                </div>
                              </div>
                              <!--end::Navbar-->
                              <!--begin::Toolbar wrapper-->
@@ -297,7 +304,6 @@
                                  <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                      <div class="mx-3 px-3">
 
-                                        </a>
                                       </div>
                                      <!--begin::Menu wrapper-->
                                      <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
@@ -330,8 +336,8 @@
                                                                 @endif
                                                             @endforeach
                                                         </div>
-                                                     <a href="#"
-                                                         class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
+                                                     <a href="javascript:"
+                                                         class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->phone }}</a>
                                                  </div>
                                                  <!--end::Username-->
                                              </div>
@@ -342,12 +348,12 @@
                                          <!--end::Menu separator-->
                                          <!--begin::Menu item-->
                                          <div class="menu-item px-5">
-                                             <a href="{{ route('backend.user.password') }}"
-                                                 class="menu-link px-5">Change Password</a>
+                                             <a href="{{ route('backend.dashboard') }}"
+                                                 class="menu-link px-5">Dashboad</a>
                                          </div>
                                          <div class="menu-item px-5">
-                                             <a href="{{ route('backend.user.edit') }}"
-                                                 class="menu-link px-5">My Profile</a>
+                                             <a href="{{ route('backend.user.password') }}"
+                                                 class="menu-link px-5">Change Password</a>
                                          </div>
                                          <!--end::Menu item-->
 

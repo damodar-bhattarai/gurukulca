@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Routine;
+use App\Models\RoutineClass;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,12 +18,19 @@ class DashboardController extends Controller
     {
         if (auth()->user()->hasRole('admin')) {
             return view('backend.dashboard.admin');
-        } else {
+        } elseif(auth()->user()->hasRole('teacher')) {
             $routines=Routine::with(['batch','classes'=>function ($q){
                 return $q->owned();
             },'classes.teacher','classes.subject'])->owned()->orderBy('routine_date','ASC')->get();
             $routines=$routines->groupBy('routine_date');
-            return view('backend.dashboard.others',compact('routines'));
+            return view('backend.dashboard.teacher',compact('routines'));
+        }else{
+            $routines =  Routine::with('classes')->owned()->orderBy('routine_date','ASC')->get();
+            $routines=$routines->groupBy('routine_date');
+
+            $max_order = RoutineClass::owned()->max('order');
+            $batch=auth()->user()->batch;
+            return view('backend.dashboard.student',compact('max_order','routines','batch'));
         }
     }
 
