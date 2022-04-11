@@ -28,7 +28,7 @@ class DashboardController extends Controller
             $routines =  Routine::with('classes')->owned()->orderBy('routine_date','ASC')->get();
             $routines=$routines->groupBy('routine_date');
 
-            $max_order = RoutineClass::owned()->where('teacher_id','!=',null)->max('order');
+            $max_order = RoutineClass::owned()->max('order');
             $batch=auth()->user()->batch;
             return view('backend.dashboard.student',compact('max_order','routines','batch'));
         }

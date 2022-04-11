@@ -60,7 +60,7 @@ class ManageRoutine extends Component
             $routines=collect();
         }
         //get max order
-        $max_order = RoutineClass::owned()->where('teacher_id','!=',null)->max('order');
+        $max_order = RoutineClass::owned()->max('order');
 
         return view('livewire.backend.manage-routine', compact('max_order','routines'));
     }
