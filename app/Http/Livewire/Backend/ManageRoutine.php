@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Backend;
 
 use App\Models\Batch;
 use App\Models\Routine;
+use App\Models\RoutineClass;
 use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -15,14 +16,15 @@ class ManageRoutine extends Component
     public $routine;
     public $editing;
     public $batches;
-    public $classes = [];
+    public $classes =  [];
     public $teachers;
     public $routine_id;
 
     protected $rules = [
         'routine.routine_date' => 'required|date|after:yesterday',
         'routine.batch_id' => 'required|exists:batches,id',
-        'classes.*.teacher_id' => 'required|exists:users,id',
+        'classes.*.teacher_id' => 'nullable|exists:users,id',
+        'classes.*.order' => 'nullable',
     ];
 
     function mount()
@@ -30,15 +32,20 @@ class ManageRoutine extends Component
         if ($this->routine_id) {
             $this->routine = Routine::with('classes')->find($this->routine_id);
             $this->editing = true;
-            foreach ($this->routine->classes as $class) {
-                $this->classes[] = [
-                    'teacher_id' => $class->teacher_id,
-                ];
+
+            for($i=0;$i<6;$i++){
+                if(isset($this->routine->classes[$i])){
+                    $this->classes[$i]['teacher_id'] = $this->routine->classes[$i]->teacher_id;
+                }else{
+                    $this->classes[$i]['teacher_id'] = null;
+                }
+
             }
+
         } else {
             $this->routine = new Routine();
             $this->editing = false;
-            $this->classes = [[], [], [], []];
+            $this->classes = [[], [], [], [], [], []];
         }
         $this->batches = Batch::select('id', 'name')->latest()->get();
         $this->teachers = User::where('type', 'teacher')->latest()->get();
@@ -47,7 +54,15 @@ class ManageRoutine extends Component
 
     public function render()
     {
-        return view('livewire.backend.manage-routine');
+        if($this->routine->routine_date){
+            $routines =  Routine::with('classes')->where('routine_date', $this->routine->routine_date)->get();
+        }else{
+            $routines=collect();
+        }
+        //get max order
+        $max_order = RoutineClass::owned()->max('order');
+
+        return view('livewire.backend.manage-routine', compact('max_order','routines'));
     }
 
     function updatedRoutine()
@@ -59,20 +74,30 @@ class ManageRoutine extends Component
                 $this->routine = $routine;
                 if ($routine->classes && $routine->classes->count() > 0) {
                     $this->classes = [];
-                    foreach ($routine->classes as $class) {
-                        $this->classes[] = [
-                            'teacher_id' => $class->teacher_id,
-                        ];
+
+                    for($i=0;$i<6;$i++){
+                        if(isset($routine->classes[$i])){
+                            $this->classes[$i]['teacher_id'] = $routine->classes[$i]->teacher_id;
+                        }else{
+                            $this->classes[$i]['teacher_id'] = null;
+                        }
+
                     }
                 }
-                $this->alert('success', 'Classes Loaded Successfully');
+                $this->alert('success', 'Previous Data Loaded');
+            }else{
+                $this->routine->id=null;
             }
         }
+
+
     }
 
     function resetForm()
     {
+        $tempDate=$this->routine->routine_date;
         $this->mount();
+        $this->routine->routine_date=$tempDate;
     }
 
     function save()
@@ -81,15 +106,17 @@ class ManageRoutine extends Component
         $this->routine->save();
 
         $this->routine->classes()->delete();
-        foreach ($this->classes as $index=>$class) {
-            $class['order'] = $index+1;
+
+        foreach ($this->classes as $index => $class) {
+            $class['order'] = $index + 1;
+           if(empty($class['teacher_id'])) unset($class['teacher_id']);
             $this->routine->classes()->create($class);
         }
         $this->resetForm();
-        if($this->routine_id){
+        if ($this->routine_id) {
             $this->flash('success', 'Routine Updated Successfully');
             return redirect()->route('backend.routines.index');
-        }else{
+        } else {
             $this->alert('success', 'Routine Saved Successfully');
         }
     }

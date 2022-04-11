@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('type')->default('student');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->unique();
             $table->string('parent_phone')->nullable();
             $table->string('code_name')->nullable()->unique();
             $table->foreignId('subject_id')->nullable()->constrained('subjects','id')->onDelete('cascade');

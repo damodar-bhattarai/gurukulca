@@ -12,39 +12,44 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-collapse-phone table-row-bordered ">
-                    <thead>
+                <table class="table table-bordered table-collapse-phone table-row-bordered table-column-bordered">
+                    <thead class="">
                         <tr>
                             <th>Date</th>
-                            <th>Batch</th>
-                            <th>Class</th>
-                           @role('admin') <th>Actions</th> @endrole
+                            @for($i=1;$i<=$max_order;$i++)
+                                <th>Class {{ $i }}</th>
+                            @endfor
+                            @role('admin')
+                                <th>Actions</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($routines as $routine)
-                            @if($routine->classes->count()==0) @continue @endif
+                        @foreach ($routines as $rtn)
                             <tr>
-                                <td>{{ $routine->routine_date }}</td>
-                                <td>
-                                    <span class="badge badge-primary">
-                                        {{ $routine->batch->name }}
-                                    </span>
-                                </td>
                                 <td>
                                     <ul>
-                                        @foreach ($routine->classes as $class)
-                                            <li>
-                                                <strong class="text-info">#Class {{ $class->order }} </strong> &nbsp; &nbsp; <strong>{{ $class->subject->name }}</strong> by <strong>{{ $class->teacher->name }}</strong>
-                                                [{{ $class->teacher->code_name }}]
-                                            </li>
-                                        @endforeach
+                                        <li>{{ $rtn->routine_date }}</li>
+                                        <li><span class="badge badge-primary">{{ optional($rtn->batch)->name }}</span>
+                                        </li>
                                     </ul>
                                 </td>
+                                @foreach ($rtn->classes as $class)
+                                    <td>
+                                        <ul>
+                                            @if ($class->subject && $class->teacher)
+                                                <li>{{ optional($class->subject)->name }}</li>
+                                                <li>({{ optional($class->teacher)->name }})</li>
+                                            @else
+                                                <li class="text-center">-</li>
+                                            @endif
+                                        </ul>
+                                    </td>
+                                @endforeach
                                 @role('admin')
                                 <td>
-                                    <a href="{{ route('backend.routines.save',$routine->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                    <button onclick="return confirm('Do you want to delete this routine?')||event.stopImmediatePropagation()" wire:click.prevent="delete({{ $routine->id }})" class="btn btn-sm btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                    <a title="Edit Routine" href="{{ route('backend.routines.save',$rtn->id) }}" class="p-2"><i class="text-info fa fa-edit"></i></a>
+                                    <button title="Delete Routine" onclick="return confirm('Do you want to delete this routine?')||event.stopImmediatePropagation()" wire:click.prevent="delete({{ $rtn->id }})" class="text-danger p-2"><i class="text-danger fa fa-trash"></i></button>
                                 </td>
                                 @endrole
                             </tr>

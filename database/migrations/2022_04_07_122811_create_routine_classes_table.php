@@ -17,7 +17,7 @@ class CreateRoutineClassesTable extends Migration
             $table->id();
             $table->integer('order')->default(0);
             $table->foreignId('routine_id')->constrained()->onDelete('cascade');
-            $table->foreignId('teacher_id')->constrained('users','id')->onDelete('cascade');
+            $table->foreignId('teacher_id')->nullable()->constrained('users','id')->onDelete('cascade');
             $table->timestamps();
         });
     }
