@@ -10,7 +10,7 @@ class Subject extends Model
     use HasFactory;
     protected $guarded=[];
 
-    function students(){
-        return $this->hasMany(User::class)->where('type','student');
+    function teachers(){
+        return $this->hasMany(User::class)->where('type','teacher');
     }
 }

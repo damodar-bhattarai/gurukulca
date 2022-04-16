@@ -62,7 +62,7 @@
                                <tr>
                                    <th>#</th>
                                    <th>Subject Name</th>
-                                   <th>No. of Students</th>
+                                   <th>No. of Teachers</th>
                                    <th>Actions</th>
                                </tr>
                            </thead>
@@ -71,7 +71,7 @@
                                <tr>
                                    <td>{{ $loop->iteration }}</td>
                                    <td>{{ $sbj->name }}</td>
-                                   <td>{{ $sbj->students_count }}</td>
+                                   <td>{{ $sbj->teachers_count }}</td>
                                    <td>
                                        <button
                                             type="button"

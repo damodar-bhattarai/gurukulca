@@ -28,7 +28,7 @@ class ManageSubject extends Component
 
     public function render()
     {
-        $subjects=Subject::withCount('students')->latest()->get();
+        $subjects=Subject::withCount('teachers')->latest()->get();
         return view('livewire.backend.manage-subject',compact('subjects'));
     }
 
