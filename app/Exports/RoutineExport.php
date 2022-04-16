@@ -110,6 +110,15 @@ class RoutineExport implements FromCollection, WithHeadings, WithMapping, WithEv
 
         $routines = $routines->latest('routine_date')->get();
 
+        if($this->teacher){
+            $routines=$routines->map(function ($routine) {
+                $routine->classes = $routine->classes->filter(function ($class) {
+                    return $class->teacher_id == $this->teacher;
+                });
+                return $routine;
+            });
+        }
+
         return $routines;
     }
 }
