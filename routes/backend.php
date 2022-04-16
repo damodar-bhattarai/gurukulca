@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
     Route::group(['prefix'=>'backend','as'=>'backend.','middleware'=>'auth'],function () {
@@ -11,13 +12,18 @@ use Illuminate\Support\Facades\Route;
         Route::get('password',[DashboardController::class,'profile'])->name('user.password');
         Route::post('password',[DashboardController::class,'updateProfile'])->name('user.password.update');
 
-        Route::get('user/edit/{id?}',[DashboardController::class,'editUser'])->name('user.edit');
-        Route::put('user/update/{id}',[DashboardController::class,'updateUser'])->name('user.update');
 
 
 
 
         Route::middleware(['role:admin'])->group(function () {
+
+            Route::get('user/edit/{id}',function($id){
+                $user=User::findOrFail($id);
+                $user_id=$user->id;
+                return view('backend.livewire-pages.edit-user',compact('user_id'));
+            })->name('user.edit');
+
 
             Route::get('routines',function(){
                 return view('backend.livewire-pages.view-routine');

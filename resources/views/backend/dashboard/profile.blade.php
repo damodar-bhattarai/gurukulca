@@ -7,6 +7,7 @@
            <h3 class="card-title"> Change Password</h3>
         </div>
         <div class="card-body">
+            <strong class="text-primary">Password should be at least 8 characters with min 1 number, 1 symbol, 1 uppercase</strong> <div class="mb-2"></div>
             @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ session('success') }}</strong>

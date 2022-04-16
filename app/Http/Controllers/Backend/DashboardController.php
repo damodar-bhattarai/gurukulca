@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
 
 class DashboardController extends Controller
 {
@@ -37,7 +38,7 @@ class DashboardController extends Controller
     function profile()
     {
         $user = auth()->user();
-        return view('backend.user.profile', compact('user'));
+        return view('backend.dashboard.profile', compact('user'));
     }
 
 
@@ -45,7 +46,16 @@ class DashboardController extends Controller
     {
         $request->validate([
             'previous_password' => 'required',
-            'new_password' => 'required|min:6|confirmed',
+            'new_password' => [
+                    'required',
+                    'confirmed',
+                    Password::min(8)
+                        ->mixedCase()
+                        ->letters()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised(),
+                ],
             'new_password_confirmation' => 'required',
         ]);
         $user = User::find(auth()->user()->id);

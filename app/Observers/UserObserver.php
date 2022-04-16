@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Mail\AccountCreated;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Mail;
 
 class UserObserver
@@ -33,14 +34,16 @@ class UserObserver
     }
 
     /**
-     * Handle the User "deleted" event.
+     * Handle the User "deleting" event.
      *
      * @param  \App\Models\User  $user
      * @return void
      */
-    public function deleted(User $user)
+    public function deleting(User $user)
     {
-        //
+        if($user->id==auth()->id()){
+            throw new Exception('Cannot delete self');
+        }
     }
 
     /**

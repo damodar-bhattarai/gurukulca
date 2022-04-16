@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Backend;
 
 use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -63,7 +65,15 @@ class UserList extends Component
     }
 
     function deleteUser($id){
-        User::destroy($id);
-        $this->alert('success','User deleted successfully');
+        DB::beginTransaction();
+        try{
+            User::destroy($id);
+            $this->alert('success','User deleted successfully');
+            DB::commit();
+        }
+        catch(Exception $e){
+            DB::rollback();
+            $this->alert('info',$e->getMessage());
+        }
     }
 }
