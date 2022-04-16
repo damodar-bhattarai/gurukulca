@@ -2,13 +2,17 @@
 
 namespace App\Http\Livewire\Backend;
 
+use App\Exports\RoutineExport;
 use App\Models\Batch;
 use App\Models\Routine;
 use App\Models\RoutineClass;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ViewRoutine extends Component
 {
@@ -44,26 +48,24 @@ class ViewRoutine extends Component
 
     public function render()
     {
-        $routines = Routine::with(['batch' => function ($q) {
-            if ($this->batch) {
-                return  $q->where('id', $this->batch);
-            } else return $q;
-        }, 'classes' => function ($q) {
-            return $q->owned();
-        }, 'classes.teacher', 'classes.subject'])->owned();
+        $routines = Routine::with('batch','classes','classes.teacher','classes.subject')->owned();
 
-
+        if ($this->batch) {
+            $routines = $routines->where('batch_id', $this->batch);
+        }
 
         if ($this->routine_date) {
             $routines = $routines->where('routine_date', $this->routine_date);
         }
+
+
         if($this->teacher){
-            $routines = $routines->whereHas('classes', function ($q) {
-                return $q->where('teacher_id', $this->teacher);
+            $routines = $routines->whereHas('classes.teacher', function ($q) {
+                return $q->where('id', $this->teacher);
             });
         }
 
-        $routines = $routines->latest('routine_date')->paginate(10);
+        $routines = $routines->latest('routine_date')->get();
 
         if($this->teacher){
             $routines=$routines->map(function ($routine) {
@@ -73,6 +75,14 @@ class ViewRoutine extends Component
                 return $routine;
             });
         }
+
+
+        $page = Paginator::resolveCurrentPage() ?: 1;
+        $perPage = 10;
+        $routines = new LengthAwarePaginator(
+            $routines->forPage($page, $perPage), $routines->count(), $perPage, $page, ['path' => Paginator::resolveCurrentPath()]
+        );
+
 
         //get max order
         $max_order = RoutineClass::owned()->max('order');
@@ -85,5 +95,11 @@ class ViewRoutine extends Component
     {
         Routine::destroy($id);
         $this->alert('success', 'Routine Deleted Successfully');
+    }
+
+    function export($ext){
+        abort_if(!in_array($ext,['xlsx','pdf']),404);
+
+        return Excel::download(new RoutineExport($this->batch,$this->routine_date,$this->teacher),'routine.'.$ext);
     }
 }

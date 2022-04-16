@@ -32,6 +32,10 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col-md-3 d-flex justify-content-end">
+                        {{-- <button type="button" wire:click.prevent="export('xlsx')" class="btn btn-sm btn-success">Export(XLS)</button> --}}
+                        <button type="button" wire:click.prevent="export('pdf')" class="btn btn-sm btn-success">Export(PDF)</button>
+                    </div>
                 </div>
             </div>
             <div class="my-4"></div>
