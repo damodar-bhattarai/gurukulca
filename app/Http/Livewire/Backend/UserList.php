@@ -21,20 +21,23 @@ class UserList extends Component
     public function render()
     {
         $users=User::with('batch','subject');
-
         $users=$users->where('type',$this->type);
 
+
+
         if($this->search){
-            $users=$users->where('name','like','%'.$this->search.'%')
-            ->orWhere('email','like','%'.$this->search.'%')
-            ->orWhere('batch_id','like','%'.$this->search.'%')
-            ->orWhere('phone','like','%'.$this->search.'%')
-            ->orWhere('code_name','like','%'.$this->search.'%')
-            ->orWhereHas('batch',function($q){
-                $q->where('name','like','%'.$this->search.'%');
-            })
-            ->orWhereHas('subject',function($q){
-                $q->where('name','like','%'.$this->search.'%');
+            $users=$users->where(function($q){
+                $q->orWhere('name','like','%'.$this->search.'%')
+                ->orWhere('email','like','%'.$this->search.'%')
+                ->orWhere('batch_id','like','%'.$this->search.'%')
+                ->orWhere('phone','like','%'.$this->search.'%')
+                ->orWhere('code_name','like','%'.$this->search.'%')
+                ->orWhereHas('batch',function($q){
+                    $q->where('name','like','%'.$this->search.'%');
+                })
+                ->orWhereHas('subject',function($q){
+                    $q->where('name','like','%'.$this->search.'%');
+                });
             });
         }
 
@@ -50,7 +53,9 @@ class UserList extends Component
             $users=$users->orderBy($this->sort_by,$this->sort_order);
         }
 
+
         $users= $users->paginate(10);
+
 
         return view('livewire.backend.user-list',compact('users'));
     }
