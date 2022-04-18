@@ -40,7 +40,7 @@
                </div>
                <div class="mb-2">
                 <label for="new_password">New Password <span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="new_password" name="new_password" placeholder="Enter your previous password" required>
+                <input type="password" class="form-control" id="new_password" name="new_password" placeholder="Enter your new password" required>
                 @error('new_password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -49,7 +49,7 @@
                </div>
                <div class="mb-2">
                 <label for="new_password_confirmation">Confirm New Password <span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" placeholder="Enter your previous password" required>
+                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" placeholder="Confirm new password" required>
                 @error('new_password_confirmation')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

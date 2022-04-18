@@ -95,6 +95,10 @@ class ManageRoutine extends Component
 
     function resetForm()
     {
+        if($this->editing){
+            $this->redirect(route('backend.routines.index'));
+            return;
+        }
         $tempDate=$this->routine->routine_date;
         $this->mount();
         $this->routine->routine_date=$tempDate;

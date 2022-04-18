@@ -100,7 +100,7 @@
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-sm btn-success">Submit</button>
                                     <button type="button" wire:click.prevent="resetForm"
-                                        class="btn btn-sm btn-danger">Reset</button>
+                                        class="btn btn-sm btn-danger">Cancel</button>
                                 </div>
                             </div>
                         @endif
@@ -148,7 +148,7 @@
                                                     <ul>
                                                         @if ($class->subject && $class->teacher)
                                                             <li>{{ optional($class->subject)->name }}</li>
-                                                            <li>({{ optional($class->teacher)->name }})</li>
+                                                            <li>{{ optional($class->teacher)->name }}</li>
                                                         @else
                                                             <li class="text-center">-</li>
                                                         @endif
