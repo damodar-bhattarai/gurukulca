@@ -107,7 +107,7 @@ class Kernel extends ConsoleKernel
                         $message->to($teacher->email);
                         $message->subject('Class Routine ' . Date('Y-m-d'));
                     });
-                    Log::info('Mail Success: ' . $message));
+                    Log::info('Mail Success: ' . $message);
                 } catch (\Exception $e) {
                     Log::error('Mail Error: ' . $e->getMessage());
                 }
