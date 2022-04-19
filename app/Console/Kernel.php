@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
 
             $teachers = User::whereHas('roles', function ($q) {
                 $q->where('name', 'teacher');
-            })->get()->take(2);
+            })->get();
 
             $routines_today = Routine::where('routine_date', Date('Y-m-d'))->get();
 
@@ -75,52 +75,52 @@ class Kernel extends ConsoleKernel
             }
         })->timezone('Asia/Kathmandu')->dailyAt('04:00')->runInBackground();
 
-        $schedule->call(function () {
+        // $schedule->call(function () {
 
-            $teachers = User::whereHas('roles', function ($q) {
-                $q->where('name', 'teacher');
-            })->get()->take(2);
+        //     $teachers = User::whereHas('roles', function ($q) {
+        //         $q->where('name', 'teacher');
+        //     })->get();
 
-            $routines_today = Routine::where('routine_date', Date('Y-m-d'))->get();
+        //     $routines_today = Routine::where('routine_date', Date('Y-m-d'))->get();
 
-            foreach ($teachers as $teacher) {
-                $message = '';
-                $batches = [];
+        //     foreach ($teachers as $teacher) {
+        //         $message = '';
+        //         $batches = [];
 
-                $classes = RoutineClass::with('routine', 'routine.batch')->where('teacher_id', $teacher->id)
-                    ->whereIn('routine_id', $routines_today->pluck('id')->toArray())
-                    ->get();
+        //         $classes = RoutineClass::with('routine', 'routine.batch')->where('teacher_id', $teacher->id)
+        //             ->whereIn('routine_id', $routines_today->pluck('id')->toArray())
+        //             ->get();
 
-                if ($classes->count() == 0) {
-                    continue;
-                }
+        //         if ($classes->count() == 0) {
+        //             continue;
+        //         }
 
-                //starting message (total classes for teacher today)
-                $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " today \r\n";
+        //         //starting message (total classes for teacher today)
+        //         $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " today \r\n";
 
-                foreach ($classes as $class) {
-                    if (!isset($batches[$class->routine->batch->name])) {
-                        $batches[$class->routine->batch->name] = [];
-                    }
-                    $batches[$class->routine->batch->name][] = $class->order;
-                }
+        //         foreach ($classes as $class) {
+        //             if (!isset($batches[$class->routine->batch->name])) {
+        //                 $batches[$class->routine->batch->name] = [];
+        //             }
+        //             $batches[$class->routine->batch->name][] = $class->order;
+        //         }
 
-                foreach ($batches as $batch => $classes) {
-                    $message .= $batch . ': Class ' . implode(', ', $classes) . "\r\n";
-                }
+        //         foreach ($batches as $batch => $classes) {
+        //             $message .= $batch . ': Class ' . implode(', ', $classes) . "\r\n";
+        //         }
 
-                Log::info('Triggered Email to ' . $teacher->name . ' at ' . $teacher->email);
-                try {
-                    Mail::raw($message, function ($message) use ($teacher) {
-                        $message->to($teacher->email);
-                        $message->subject('Class Routine ' . Date('Y-m-d'));
-                    });
-                    Log::info('Mail Success: ' . $message);
-                } catch (\Exception $e) {
-                    Log::error('Mail Error: ' . $e->getMessage());
-                }
-            }
-        })->timezone('Asia/Kathmandu')->everyFiveMinutes()->runInBackground();
+        //         Log::info('Triggered Email to ' . $teacher->name . ' at ' . $teacher->email);
+        //         try {
+        //             Mail::raw($message, function ($message) use ($teacher) {
+        //                 $message->to($teacher->email);
+        //                 $message->subject('Class Routine ' . Date('Y-m-d'));
+        //             });
+        //             Log::info('Mail Success: ' . $message);
+        //         } catch (\Exception $e) {
+        //             Log::error('Mail Error: ' . $e->getMessage());
+        //         }
+        //     }
+        // })->timezone('Asia/Kathmandu')->dailyAt('03:00')->runInBackground();
     }
 
     /**
