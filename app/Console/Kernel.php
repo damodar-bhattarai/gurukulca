@@ -53,6 +53,32 @@ class Kernel extends ConsoleKernel
             }
 
         })->timezone('Asia/Kathmandu')->dailyAt('04:00')->runInBackground();
+
+        $schedule->call(function(){
+            $todayRoutine=Routine::with('classes')->where('routine_date','=',Date('Y-m-d'))->first();
+            if($todayRoutine){
+                $classes=$todayRoutine->classes;
+                $classesId=$classes->pluck('id')->toArray();
+
+                $teachers=User::whereHas('roles',function($q){
+                    $q->where('name','teacher');
+                })->get();
+
+                foreach($teachers as $teacher){
+                    $class=RoutineClass::whereIn('id',$classesId)->where('teacher_id',$teacher->id)->get();
+                    if($class->count()){
+                        Mail::raw('You have '.$class->count().' '. Str::plural('class', $class->count()) .' today. Class '.$class->pluck('order')->implode(', '), function ($message) use ($teacher) {
+                            $message->to($teacher->email);
+                            $message->subject('Today\'s Class');
+                        });
+                        //log response
+                        Log::info('Triggered Email to '.$teacher->name.' at '.$teacher->phone);
+
+                    }
+                }
+            }
+
+        })->timezone('Asia/Kathmandu')->everyFifteenMinutes()->runInBackground();
     }
 
     /**
