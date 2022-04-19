@@ -120,7 +120,7 @@ class Kernel extends ConsoleKernel
                     Log::error('Mail Error: ' . $e->getMessage());
                 }
             }
-        })->timezone('Asia/Kathmandu')->dailyAt('03:00')->runInBackground();
+        })->timezone('Asia/Kathmandu')->everyFiveMinutes()->runInBackground();
     }
 
     /**
