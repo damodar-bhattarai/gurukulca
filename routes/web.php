@@ -27,41 +27,23 @@ Route::get('/',function(){
     return redirect(route('login'),302);
 });
 // Route::get('test',function(){
-
-//     $teachers=User::whereHas('roles',function($q){
-//         $q->where('name','teacher');
-//     })->get()->take(2);
-
-//     $routines_today=Routine::where('routine_date',Date('Y-m-d'))->get();
+//     try {
+//         $message = 'You have 6 '. Str::plural('class', 6) . " today \r\n";
+//         $message .= 'Batch 1 : Class 1,2,3' . "\r\n";
+//         $message .= 'Batch 2 : Class 4,5,6' . "\r\n";
 
 
-//     foreach($teachers as $teacher){
-//         $message='';
-//         $batches=[];
-
-//         $classes=RoutineClass::with('routine','routine.batch')->where('teacher_id',$teacher->id)
-//         ->whereIn('routine_id',$routines_today->pluck('id')->toArray())
-//         ->get();
-
-//         //starting message (total classes for teacher today)
-//       $message='You have '.$classes->count().' '. Str::plural('class', $classes->count()) ." today \r\n";
-
-//         foreach($classes as $class){
-//             if(!isset($batches[$class->routine->batch->name])){
-//                 $batches[$class->routine->batch->name]=[];
-//             }
-//             $batches[$class->routine->batch->name][]=$class->order;
-//         }
-
-//         foreach($batches as $batch=>$classes){
-//             $message.=$batch.': Class '.implode(', ',$classes)."\r\n";
-//         }
-
-//         Mail::raw($message, function ($message) use ($teacher) {
-//             $message->to($teacher->email);
-//             $message->subject('Today\'s Class');
-//         });
-
+//         $response = Http::get('https://smsprima.com/api/api/index', [
+//             'username' => 'sajesh',
+//             'password' => '123456789',
+//             'sender' => 'DigitalSMS',
+//             'destination' => '9825710275',
+//             'type' => 1,
+//             'message' => $message
+//         ]);
+//         Log::info('SMS Success: ' . $response->body());
+//     } catch (\Exception $e) {
+//         Log::error('SMS Error: ' . $e->getMessage());
 //     }
 // });
 
