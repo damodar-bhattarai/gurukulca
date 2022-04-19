@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Imports\StudentsImport;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
     Route::group(['prefix'=>'backend','as'=>'backend.','middleware'=>'auth'],function () {
 
@@ -52,6 +55,22 @@ use Illuminate\Support\Facades\Route;
             Route::get('students',function(){
                 return view('backend.livewire-pages.list-user',['type'=>'student']);
             })->name('user.students');
+
+            Route::get('students/bulk',function(){
+                return view('backend.livewire-pages.bulk-student',);
+            })->name('user.students.bulk');
+
+            Route::post('students/bulk',function(Request $request){
+                $request->validate([
+                    'file'=>'required|mimes:xlsx,xls'
+                ]);
+
+                 Excel::import(new StudentsImport, $request->file('file'));
+
+                return redirect()->route('backend.user.students.bulk')
+                ->with('success','Students Imported successfully.');
+
+            });
 
             Route::get('user/save',function(){
                 return view('backend.livewire-pages.create-user');

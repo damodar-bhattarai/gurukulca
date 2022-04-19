@@ -106,14 +106,16 @@
                     @endif
                 @endif
 
-                <div class="row my-4">
-                    <div class="col-md-4 d-flex align-items-center">
-                        <div class="form-check form-switch form-check-custom form-check-solid me-10">
-                            <input class="form-check-input h-30px w-50px" type="checkbox" value="" wire:model.lazy="change_password" id="changePassword"/>
-                            <label class="form-check-label" for="changePassword">
-                               Change Password
-                            </label>
-                        </div>
+                @if ($user_id)
+                    <div class="row my-4">
+                        <div class="col-md-4 d-flex align-items-center">
+                            <div class="form-check form-switch form-check-custom form-check-solid me-10">
+                                <input class="form-check-input h-30px w-50px" type="checkbox" value=""
+                                    wire:model.lazy="change_password" id="changePassword" />
+                                <label class="form-check-label" for="changePassword">
+                                    Change Password
+                                </label>
+                            </div>
                         </div>
                         <div class="col-md-8">
                             @if ($change_password)
@@ -128,18 +130,19 @@
                             @endif
                         </div>
                     </div>
+                @endif
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <button type="submit" wire:loading.attr="disabled" class="btn btn-success btn-sm">Submit
-                                <span wire:loading wire:target="save"> <i class="fa fa-spin fa-spinner"></i>
-                                </span></button>
-                            <button type="button" wire:loading.attr="disabled" wire:click.prevent="cancel"
-                                class="btn btn-danger btn-sm">Cancel <span wire:loading wire:target="cancel"> <i
-                                        class="fa fa-spin fa-spinner"></i>
-                                </span></button>
-                        </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <button type="submit" wire:loading.attr="disabled" class="btn btn-success btn-sm">Submit
+                            <span wire:loading wire:target="save"> <i class="fa fa-spin fa-spinner"></i>
+                            </span></button>
+                        <button type="button" wire:loading.attr="disabled" wire:click.prevent="cancel"
+                            class="btn btn-danger btn-sm">Cancel <span wire:loading wire:target="cancel"> <i
+                                    class="fa fa-spin fa-spinner"></i>
+                            </span></button>
                     </div>
+                </div>
             </form>
         </div>
     </div>
