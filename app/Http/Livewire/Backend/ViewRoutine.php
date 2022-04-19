@@ -78,7 +78,7 @@ class ViewRoutine extends Component
 
 
         $page = Paginator::resolveCurrentPage() ?: 1;
-        $perPage = 10;
+        $perPage = 20;
         $routines = new LengthAwarePaginator(
             $routines->forPage($page, $perPage), $routines->count(), $perPage, $page, ['path' => Paginator::resolveCurrentPath()]
         );

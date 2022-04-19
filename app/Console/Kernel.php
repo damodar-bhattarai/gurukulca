@@ -40,6 +40,10 @@ class Kernel extends ConsoleKernel
                     ->whereIn('routine_id', $routines_today->pluck('id')->toArray())
                     ->get();
 
+                if ($classes->count() == 0) {
+                    continue;
+                }
+
                 //starting message (total classes for teacher today)
                 $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " today \r\n";
 
@@ -87,6 +91,10 @@ class Kernel extends ConsoleKernel
                     ->whereIn('routine_id', $routines_today->pluck('id')->toArray())
                     ->get();
 
+                if ($classes->count() == 0) {
+                    continue;
+                }
+
                 //starting message (total classes for teacher today)
                 $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " today \r\n";
 
@@ -103,7 +111,7 @@ class Kernel extends ConsoleKernel
 
                 Log::info('Triggered Email to ' . $teacher->name . ' at ' . $teacher->email);
                 try {
-                   Mail::raw($message, function ($message) use ($teacher) {
+                    Mail::raw($message, function ($message) use ($teacher) {
                         $message->to($teacher->email);
                         $message->subject('Class Routine ' . Date('Y-m-d'));
                     });
@@ -112,7 +120,7 @@ class Kernel extends ConsoleKernel
                     Log::error('Mail Error: ' . $e->getMessage());
                 }
             }
-        })->timezone('Asia/Kathmandu')->everyMinute()->runInBackground();
+        })->timezone('Asia/Kathmandu')->dailyAt('03:00')->runInBackground();
     }
 
     /**
