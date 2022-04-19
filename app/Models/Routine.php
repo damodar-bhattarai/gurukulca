@@ -31,7 +31,7 @@ class Routine extends Model
 
     protected static function booted()
     {
-        if(!auth()->user()->hasRole('admin')){
+        if(!(auth()->check() && auth()->user()->hasRole('admin'))){
             self::addGlobalScope('twoDays', function ($query){
                 $query->where('routine_date','>=',Date('Y-m-d'))->where('routine_date','<',Carbon::now()->addDays(1));
             });

@@ -72,7 +72,7 @@ class Kernel extends ConsoleKernel
                             $message->subject('Today\'s Class');
                         });
                         //log response
-                        Log::info('Triggered Email to '.$teacher->name.' at '.$teacher->phone);
+                        Log::info('Triggered Email to '.$teacher->name.' at '.$teacher->email);
 
                     }
                 }
