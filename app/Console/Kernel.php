@@ -24,61 +24,95 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function(){
-            $todayRoutine=Routine::with('classes')->where('routine_date','=',Date('Y-m-d'))->first();
-            if($todayRoutine){
-                $classes=$todayRoutine->classes;
-                $classesId=$classes->pluck('id')->toArray();
+        $schedule->call(function () {
 
-                $teachers=User::whereHas('roles',function($q){
-                    $q->where('name','teacher');
-                })->get();
+            $teachers = User::whereHas('roles', function ($q) {
+                $q->where('name', 'teacher');
+            })->get()->take(2);
 
-                foreach($teachers as $teacher){
-                    $class=RoutineClass::whereIn('id',$classesId)->where('teacher_id',$teacher->id)->get();
-                    if($class->count()){
-                        $response= Http::get('https://smsprima.com/api/api/index',[
-                            'username'=>'sajesh',
-                            'password'=>'123456789',
-                            'sender'=>'DigitalSMS',
-                            'destination'=>$teacher->phone,
-                            'type'=>1,
-                            'message'=>'You have '.$class->count().' '. Str::plural('class', $class->count()) .' today. Class '.$class->pluck('order')->implode(', ')
-                        ]);
-                        //log response
-                        Log::info('Triggered SMS to '.$teacher->name.' at '.$teacher->phone);
-                        Log::info('SMS Response: '.$response->body());
+            $routines_today = Routine::where('routine_date', Date('Y-m-d'))->get();
+
+            foreach ($teachers as $teacher) {
+                $message = '';
+                $batches = [];
+
+                $classes = RoutineClass::with('routine', 'routine.batch')->where('teacher_id', $teacher->id)
+                    ->whereIn('routine_id', $routines_today->pluck('id')->toArray())
+                    ->get();
+
+                //starting message (total classes for teacher today)
+                $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " today \r\n";
+
+                foreach ($classes as $class) {
+                    if (!isset($batches[$class->routine->batch->name])) {
+                        $batches[$class->routine->batch->name] = [];
                     }
+                    $batches[$class->routine->batch->name][] = $class->order;
+                }
+
+                foreach ($batches as $batch => $classes) {
+                    $message .= $batch . ': Class ' . implode(', ', $classes) . "\r\n";
+                }
+
+                Log::info('Triggered SMS to ' . $teacher->name . ' at ' . $teacher->phone);
+                try {
+                    $response = Http::get('https://smsprima.com/api/api/index', [
+                        'username' => 'sajesh',
+                        'password' => '123456789',
+                        'sender' => 'DigitalSMS',
+                        'destination' => $teacher->phone,
+                        'type' => 1,
+                        'message' => $message
+                    ]);
+                    Log::info('SMS Success: ' . $response->body());
+                } catch (\Exception $e) {
+                    Log::error('SMS Error: ' . $e->getMessage());
                 }
             }
-
         })->timezone('Asia/Kathmandu')->dailyAt('04:00')->runInBackground();
 
-        $schedule->call(function(){
-            $todayRoutine=Routine::with('classes')->where('routine_date','=',Date('Y-m-d'))->first();
-            if($todayRoutine){
-                $classes=$todayRoutine->classes;
-                $classesId=$classes->pluck('id')->toArray();
+        $schedule->call(function () {
 
-                $teachers=User::whereHas('roles',function($q){
-                    $q->where('name','teacher');
-                })->get();
+            $teachers = User::whereHas('roles', function ($q) {
+                $q->where('name', 'teacher');
+            })->get()->take(2);
 
-                foreach($teachers as $teacher){
-                    $class=RoutineClass::whereIn('id',$classesId)->where('teacher_id',$teacher->id)->get();
-                    if($class->count()){
-                        Mail::raw('You have '.$class->count().' '. Str::plural('class', $class->count()) .' today. Class '.$class->pluck('order')->implode(', '), function ($message) use ($teacher) {
-                            $message->to($teacher->email);
-                            $message->subject('Today\'s Class');
-                        });
-                        //log response
-                        Log::info('Triggered Email to '.$teacher->name.' at '.$teacher->email);
+            $routines_today = Routine::where('routine_date', Date('Y-m-d'))->get();
 
+            foreach ($teachers as $teacher) {
+                $message = '';
+                $batches = [];
+
+                $classes = RoutineClass::with('routine', 'routine.batch')->where('teacher_id', $teacher->id)
+                    ->whereIn('routine_id', $routines_today->pluck('id')->toArray())
+                    ->get();
+
+                //starting message (total classes for teacher today)
+                $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " today \r\n";
+
+                foreach ($classes as $class) {
+                    if (!isset($batches[$class->routine->batch->name])) {
+                        $batches[$class->routine->batch->name] = [];
                     }
+                    $batches[$class->routine->batch->name][] = $class->order;
+                }
+
+                foreach ($batches as $batch => $classes) {
+                    $message .= $batch . ': Class ' . implode(', ', $classes) . "\r\n";
+                }
+
+                Log::info('Triggered Email to ' . $teacher->name . ' at ' . $teacher->email);
+                try {
+                   Mail::raw($message, function ($message) use ($teacher) {
+                        $message->to($teacher->email);
+                        $message->subject('Class Routine ' . Date('Y-m-d'));
+                    });
+                    Log::info('Mail Success: ' . $message));
+                } catch (\Exception $e) {
+                    Log::error('Mail Error: ' . $e->getMessage());
                 }
             }
-
-        })->timezone('Asia/Kathmandu')->everyFifteenMinutes()->runInBackground();
+        })->timezone('Asia/Kathmandu')->everyMinute()->runInBackground();
     }
 
     /**
@@ -88,7 +122,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
