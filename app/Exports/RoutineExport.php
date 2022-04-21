@@ -76,12 +76,12 @@ class RoutineExport implements FromCollection, WithHeadings, WithMapping, WithEv
     public function map($routine):array{
         return[
           $routine->routine_date."\r\n".$routine->batch->name,
-            $routine->classes->where('order',1)->first()?$routine->classes->where('order',1)->first()->subject->name."\r\n".$routine->classes->where('order',1)->first()->teacher->name:'',
-            $routine->classes->where('order',2)->first()?$routine->classes->where('order',2)->first()->subject->name."\r\n".$routine->classes->where('order',2)->first()->teacher->name:'',
-            $routine->classes->where('order',3)->first()?$routine->classes->where('order',3)->first()->subject->name."\r\n".$routine->classes->where('order',3)->first()->teacher->name:'',
-            $routine->classes->where('order',4)->first()?$routine->classes->where('order',4)->first()->subject->name."\r\n".$routine->classes->where('order',4)->first()->teacher->name:'',
-            $routine->classes->where('order',5)->first()?$routine->classes->where('order',5)->first()->subject->name."\r\n".$routine->classes->where('order',5)->first()->teacher->name:'',
-            $routine->classes->where('order',6)->first()?$routine->classes->where('order',6)->first()->subject->name."\r\n".$routine->classes->where('order',6)->first()->teacher->name:'',
+            $routine->classes->where('order',1)->first()?$routine->classes->where('order',1)->first()->teacher->code_name:'',
+            $routine->classes->where('order',2)->first()?$routine->classes->where('order',2)->first()->teacher->code_name:'',
+            $routine->classes->where('order',3)->first()?$routine->classes->where('order',3)->first()->teacher->code_name:'',
+            $routine->classes->where('order',4)->first()?$routine->classes->where('order',4)->first()->teacher->code_name:'',
+            $routine->classes->where('order',5)->first()?$routine->classes->where('order',5)->first()->teacher->code_name:'',
+            $routine->classes->where('order',6)->first()?$routine->classes->where('order',6)->first()->teacher->code_name:'',
         ];
     }
 

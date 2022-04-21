@@ -55,7 +55,7 @@ class ManageRoutine extends Component
     public function render()
     {
         if($this->routine->routine_date){
-            $routines =  Routine::with('classes')->where('routine_date', $this->routine->routine_date)->get();
+            $routines =  Routine::with('batch','classes','classes.teacher','classes.subject')->where('routine_date', $this->routine->routine_date)->get();
         }else{
             $routines=collect();
         }
@@ -107,6 +107,28 @@ class ManageRoutine extends Component
     function save()
     {
         $this->validate();
+
+        //get teachers id as array
+        $teachers_id = [];
+        foreach ($this->classes as $index=>$class) {
+            if(isset($class['teacher_id']) && !empty($class['teacher_id'])) $teachers_id[$index+1] = $class['teacher_id'];
+        }
+        $routines=Routine::with('classes','batch')->where('id','!=',$this->routine->id)->whereDate('routine_date',$this->routine->routine_date)->get();
+        foreach($routines as $routine){
+            foreach($routine->classes as $class){
+                if(isset($teachers_id[$class->order]) && $teachers_id[$class->order]==$class->teacher_id){
+                    if(in_array($class->teacher_id,$teachers_id)){
+                        $teacher=User::find($class->teacher_id);
+                        $this->alert('error', $teacher->name.' already assigned on batch '.$routine->batch->name.' on Class '.$class->order);
+                        return;
+                    }
+                }
+
+            }
+        }
+
+
+
         $this->routine->save();
 
         $this->routine->classes()->delete();

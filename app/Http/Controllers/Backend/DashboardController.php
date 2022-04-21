@@ -19,12 +19,36 @@ class DashboardController extends Controller
     {
         if (auth()->user()->hasRole('admin')) {
             return view('backend.dashboard.admin');
+
         } elseif(auth()->user()->hasRole('teacher')) {
-            $routines=Routine::with(['batch','classes'=>function ($q){
-                return $q->owned();
-            },'classes.teacher','classes.subject'])->owned()->orderBy('routine_date','ASC')->get();
-            $routines=$routines->groupBy('routine_date');
-            return view('backend.dashboard.teacher',compact('routines'));
+
+
+
+         $today = Carbon::now()->format('Y-m-d');
+            $tClasses=RoutineClass::where('teacher_id',auth()->user()->id)->whereHas('routine',function($query) use($today){
+                $query->where('routine_date',$today);
+            })->get();
+
+            for($i=1; $i<=6; $i++){
+                $todayClasses[$i]=$tClasses->where('order',$i)->first()?$tClasses->where('order',$i)->first()->routine->batch->name:'';
+            }
+
+            $tommorrow = Carbon::now()->addDay()->format('Y-m-d');
+
+            $tmClasses=RoutineClass::where('teacher_id',auth()->user()->id)->whereHas('routine',function($query) use($tommorrow){
+                $query->where('routine_date',$tommorrow);
+            })->get();
+
+            for($i=1; $i<=6; $i++){
+                $tommorrowClasses[$i]=$tmClasses->where('order',$i)->first()?$tmClasses->where('order',$i)->first()->routine->batch->name:'';
+            }
+
+            $allClasses=[
+                $today=>$todayClasses,
+                $tommorrow=>$tommorrowClasses
+            ];
+
+            return view('backend.dashboard.teacher',compact('allClasses'));
         }else{
             $routines =  Routine::with('classes')->owned()->orderBy('routine_date','ASC')->get();
             $routines=$routines->groupBy('routine_date');

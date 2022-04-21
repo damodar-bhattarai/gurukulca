@@ -16,11 +16,11 @@ class RoutineClass extends Model
     }
 
     function teacher(){
-        return $this->belongsTo(User::class,'teacher_id')->withDefault('name','');
+        return $this->belongsTo(User::class,'teacher_id')->withDefault(['name'=>'-','code_name'=>'-']);
     }
 
     function subject(){
-        return $this->hasOneThrough(Subject::class,User::class,'id','id','teacher_id','subject_id')->withDefault('name','');
+        return $this->hasOneThrough(Subject::class,User::class,'id','id','teacher_id','subject_id')->withDefault(['name'=>'-']);
     }
 
     function scopeOwned($query){

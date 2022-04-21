@@ -33,8 +33,8 @@
                         </select>
                     </div>
                     <div class="col-md-3 d-flex justify-content-end">
-                        {{-- <button type="button" wire:click.prevent="export('xlsx')" class="btn btn-sm btn-success">Export(XLS)</button> --}}
-                        <button type="button" wire:click.prevent="export('pdf')" class="btn btn-sm btn-success">Export(PDF)</button>
+                        <button type="button" onclick="return confirm('Do you want to send SMS to all teachers on selected routines?')||event.stopImmediatePropagation()" wire:click.prevent="sendSMS" wire:loading.attr="disabled" class="btn btn-sm btn-success mx-2">Send SMS</button>
+                        <button type="button" wire:click.prevent="export('pdf')" wire:loading.attr="disabled" class="btn btn-sm btn-info mx-2">Export(PDF)</button>
                     </div>
                 </div>
             </div>
@@ -43,6 +43,7 @@
                 <table class="table table-bordered table-collapse-phone table-row-bordered table-column-bordered">
                     <thead class="">
                         <tr>
+                            <th></th>
                             <th>Date</th>
                             @for ($i = 1; $i <= $max_order; $i++)
                                 <th>Class {{ $i }}</th>
@@ -53,8 +54,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($routines as $rtn)
+                        @foreach ($routines as $index=>$rtn)
                             <tr>
+                                <td>
+                                  <div>
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input type="checkbox" class="mx-auto custom-control-input"
+                                            style="transform: scale(1.4)" id="{{ $rtn->id }}"
+                                            wire:model.defer="selectedRoutines" value="{{ $rtn->id }}">
+                                        <label class="custom-control-label" for="{{ $rtn->id }}"></label>
+                                    </div>
+                                  </div>
+                                </td>
                                 <td>
                                     <ul>
                                         <li>{{ $rtn->routine_date }}</li>
@@ -68,15 +79,7 @@
                                     $cls=$rtn->classes->where('order', $i)->first();
                                 @endphp
                                     <td>
-                                        <ul>
-                                            @if($cls && $cls->subject && $cls->teacher)
-                                                <li>{{ $cls->subject->name }}</li>
-                                                <li>{{ $cls->teacher->name }}</li>
-                                            @else
-                                                <li class="text-center">-</li>
-                                            @endif
-
-                                        </ul>
+                                        {{ $cls->teacher?$cls->teacher->code_name:'-' }}
                                     </td>
                                 @endfor
 

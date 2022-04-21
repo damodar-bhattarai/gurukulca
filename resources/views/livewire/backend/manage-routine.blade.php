@@ -145,14 +145,7 @@
                                             </td>
                                             @foreach ($rtn->classes as $class)
                                                 <td>
-                                                    <ul>
-                                                        @if ($class->subject && $class->teacher)
-                                                            <li>{{ optional($class->subject)->name }}</li>
-                                                            <li>{{ optional($class->teacher)->name }}</li>
-                                                        @else
-                                                            <li class="text-center">-</li>
-                                                        @endif
-                                                    </ul>
+                                                   {{ $class->teacher?$class->teacher->code_name:'-' }}
                                                 </td>
                                             @endforeach
 
