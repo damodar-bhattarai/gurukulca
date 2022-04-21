@@ -66,6 +66,12 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
+        'custom' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/customs/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 365,
+        ],
 
         'slack' => [
             'driver' => 'slack',

@@ -168,8 +168,8 @@ class ViewRoutine extends Component
                 }
             }
 
-            Log::info('Triggered SMS to ' . $teacher->name . ' at ' . $teacher->phone);
-            Log::info('Message: ' . $message);
+            Log::channel('custom')->info('Triggered SMS to ' . $teacher->name . ' at ' . $teacher->phone);
+            Log::channel('custom')->info('Message: ' . $message);
             try {
                 $response = Http::get('https://smsprima.com/api/api/index', [
                     'username' => 'sajesh',
@@ -179,10 +179,10 @@ class ViewRoutine extends Component
                     'type' => 1,
                     'message' => $message
                 ]);
-                Log::info('SMS Success: ' . $response->body());
+                Log::channel('custom')->info('SMS Success: ' . $response->body());
                 $sent_teachers[]=$teacher->name;
             } catch (\Exception $e) {
-                Log::error('SMS Error: ' . $e->getMessage());
+                Log::channel('custom')->error('SMS Error: ' . $e->getMessage());
                 $failed_teachers[]=$teacher->name;
             }
         }
