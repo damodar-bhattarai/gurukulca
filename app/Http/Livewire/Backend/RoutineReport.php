@@ -17,14 +17,13 @@ class RoutineReport extends Component
     public $from_date, $to_date, $batch, $teacher;
     public $showReport = false;
     public $teacherBatchRoutine = [];
-    public $batch_class_count = [];
     public $selectedBatches = [];
 
 
     function mount()
     {
-        $this->to_date = $this->from_date = Carbon::now()->subDay(3)->format('Y-m-d');
-        // $this->from_date= Carbon::now()->subDays(3)->format('Y-m-d');
+        $this->to_date =  Carbon::now()->subDay(1)->format('Y-m-d');
+        $this->from_date= Carbon::now()->subDays(31)->format('Y-m-d');
 
         $this->teachers = User::select('id', 'name', 'code_name')->where('type', 'teacher')->latest()->get();
         $this->batches = Batch::select('id', 'name')->latest()->get();
@@ -89,22 +88,6 @@ class RoutineReport extends Component
             $batch_group = $routines->groupBy('batch.name');
 
             foreach ($batch_group as $batch_name => $routines) {
-
-                // $batchClasses = 0;
-
-                // if (in_array($batch_name, $this->selectedBatches->pluck('name')->toArray())) {
-
-                //     $routines->each(function ($routine) use (&$batchClasses, $teacher) {
-                //         $batchClasses += $routine->classes->filter(function ($class) use ($teacher) {
-                //             if($this->teacher){
-                //                 return $class->teacher->id == $teacher->id;
-                //             }
-                //             return (!empty($class->teacher_id));
-                //         })->count();
-                //     });
-
-                //     $this->batch_class_count[$batch_name] = $batchClasses;
-                // }
 
                 $totalClasses = 0;
 
