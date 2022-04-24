@@ -7,6 +7,7 @@ use App\Models\Batch;
 use App\Models\Routine;
 use App\Models\RoutineClass;
 use App\Models\User;
+use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Http;
@@ -172,15 +173,20 @@ class ViewRoutine extends Component
             Log::channel('custom')->info('Message: ' . $message);
             try {
                 $response = Http::get('https://smsprima.com/api/api/index', [
-                    'username' => 'sajesh',
-                    'password' => '123456789',
+                    'username' => 'sajesh00',
+                    'password' => '12345678900',
                     'sender' => 'DigitalSMS',
                     'destination' => $teacher->phone,
                     'type' => 1,
                     'message' => $message
                 ]);
+                $code=explode(':', $response->body())[0]??'';
+                if($code != '1701'){
+                    throw new Exception('SMS not sent. Error:'.$code);
+                }
                 Log::channel('custom')->info('SMS Success: ' . $response->body());
                 $sent_teachers[]=$teacher->name;
+
             } catch (\Exception $e) {
                 Log::channel('custom')->error('SMS Error: ' . $e->getMessage());
                 $failed_teachers[]=$teacher->name;

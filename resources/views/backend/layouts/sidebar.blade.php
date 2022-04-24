@@ -118,6 +118,14 @@
                                     <span class="menu-title">Batches</span>
                                 </a>
                             </div>
+
+                            <div class="menu-item">
+                                <div class="menu-content pt-8 pb-2">
+                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Routines</span>
+                                </div>
+                            </div>
+
+
                             <div class="menu-item">
                                 <a class="menu-link" href="{{ route('backend.routines.save') }}">
                                     <span class="menu-icon">
@@ -158,6 +166,32 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                     <span class="menu-title">View Routine</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-content pt-8 pb-2">
+                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Reports</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('backend.routines.report') }}">
+                                    <span class="menu-icon">
+                                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                     <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                                fill="black" />
+                                        </svg>
+                                    </span>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <span class="menu-title">Generate Reports</span>
                                 </a>
                             </div>
 

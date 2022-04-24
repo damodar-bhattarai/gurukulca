@@ -28,6 +28,10 @@ use Maatwebsite\Excel\Facades\Excel;
             })->name('user.edit');
 
 
+            Route::get('routines/report',function(){
+                return view('backend.livewire-pages.routine-report');
+            })->name('routines.report');
+
             Route::get('routines',function(){
                 return view('backend.livewire-pages.view-routine');
             })->name('routines.index');

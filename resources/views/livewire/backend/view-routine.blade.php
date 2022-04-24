@@ -79,7 +79,7 @@
                                     $cls=$rtn->classes->where('order', $i)->first();
                                 @endphp
                                     <td>
-                                        {{ $cls->teacher?$cls->teacher->code_name:'-' }}
+                                        {{ optional($cls)->teacher->code_name??'-' }}
                                     </td>
                                 @endfor
 
