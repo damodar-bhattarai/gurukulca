@@ -40,7 +40,7 @@ class RoutineReport extends Component
 
     function download()
     {
-        return Excel::download(new ReportExport($this->teacherBatchRoutine, $this->from_date, $this->to_date, $this->selectedBatches, $this->batch_class_count), 'reports.xlsx');
+        return Excel::download(new ReportExport($this->teacherBatchRoutine, $this->from_date, $this->to_date, $this->selectedBatches), 'reports.xlsx');
     }
 
 
