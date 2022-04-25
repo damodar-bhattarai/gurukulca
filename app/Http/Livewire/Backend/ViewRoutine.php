@@ -195,7 +195,7 @@ class ViewRoutine extends Component
 
         $message = '';
         if ($sent_teachers) {
-            $message .= 'SMS sent to ' . implode(', ', $sent_teachers) . ' successfully.';
+            $message .= 'SMS sent to ' . implode(', ', $sent_teachers) . ' successfully.'."<br/>";
         }
         if ($failed_teachers) {
             $message .= 'SMS failed to ' . implode(', ', $failed_teachers) . '.';
