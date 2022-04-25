@@ -55,9 +55,10 @@
                                     </ul>
                                 </td>
                                 <td>
-
-@if($user->type=='admin' && (auth()->id()==$user->id || auth()->id()==1))
+@if($user->type=="admin")
+@if((auth()->id()==$user->id || auth()->id()==1))
                                     <a href="{{ route('backend.user.edit',$user->id) }}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+@endif
 @else
 <a href="{{ route('backend.user.edit',$user->id) }}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
 @endif
