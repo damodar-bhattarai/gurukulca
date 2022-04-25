@@ -70,6 +70,10 @@ class UserList extends Component
     }
 
     function deleteUser($id){
+if($id==1){
+$this->alert('error','Super admin cannot be deleted');
+return ;
+}
         DB::beginTransaction();
         try{
             User::destroy($id);
