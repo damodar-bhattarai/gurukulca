@@ -174,7 +174,7 @@ class ViewRoutine extends Component
             try {
                 $response = Http::get('https://smsprima.com/api/api/index', [
                     'username' => 'sajesh00',
-                    'password' => '12345678900',
+                    'password' => '123456789',
                     'sender' => 'DigitalSMS',
                     'destination' => $teacher->phone,
                     'type' => 1,
