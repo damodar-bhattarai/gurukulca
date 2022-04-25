@@ -173,7 +173,7 @@ class ViewRoutine extends Component
             Log::channel('custom')->info('Message: ' . $message);
             try {
                 $response = Http::get('https://smsprima.com/api/api/index', [
-                    'username' => 'sajesh00',
+                    'username' => 'sajesh',
                     'password' => '123456789',
                     'sender' => 'DigitalSMS',
                     'destination' => $teacher->phone,
