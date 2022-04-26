@@ -22,9 +22,31 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Else_;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 Route::get('/',function(){
     return redirect(route('login'),302);
+});
+
+Route::get('pull',function(){
+    $migration = new Process(['git', 'pull']);
+
+    $migration1=new Process(['git', 'config', '--global','--add','safe.directory',base_path()]);
+
+    $migration->setWorkingDirectory(base_path());
+    $migration1->setWorkingDirectory(base_path());
+
+    $migration->run();
+    $migration1->run();
+
+    if($migration->isSuccessful()){
+       echo $migration->getOutput();
+       echo '<br>----<br>---<br>';
+       echo $migration1->getOutput();
+    } else {
+        throw new ProcessFailedException($migration);
+    }
 });
 // Route::get('test',function(){
 //     try {
