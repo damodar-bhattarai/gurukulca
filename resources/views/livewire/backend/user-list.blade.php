@@ -55,7 +55,13 @@
                                     </ul>
                                 </td>
                                 <td>
+@if($user->type=="admin")
+@if((auth()->id()==$user->id || auth()->id()==1))
                                     <a href="{{ route('backend.user.edit',$user->id) }}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+@endif
+@else
+<a href="{{ route('backend.user.edit',$user->id) }}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+@endif
                                     <button type="button" class="btn btn-danger btn-sm"
                                         onclick="return confirm('Are you sure?')||event.stopImmediatePropagation()"
                                         wire:click.prevent="deleteUser({{ $user->id }})"

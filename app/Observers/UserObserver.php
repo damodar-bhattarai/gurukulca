@@ -44,6 +44,9 @@ class UserObserver
         if($user->id==auth()->id()){
             throw new Exception('Cannot delete self');
         }
+if($user->id==1){
+throw new Exception('Super admin cannot be deleted');
+}
     }
 
     /**

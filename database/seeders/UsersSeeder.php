@@ -16,6 +16,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+$super=Role::firstOrCreate(['name'=>'super']);
         $admin=Role::firstOrCreate(['name'=>'admin']);
         $teacher=Role::firstOrCreate(['name'=>'teacher']);
         $student=Role::firstOrCreate(['name'=>'student']);
@@ -33,5 +34,6 @@ class UsersSeeder extends Seeder
         ]);
 
         $sa1->assignRole($admin);
+$sa1->assignRole($super);
     }
 }

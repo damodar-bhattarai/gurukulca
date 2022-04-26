@@ -173,8 +173,8 @@ class ViewRoutine extends Component
             Log::channel('custom')->info('Message: ' . $message);
             try {
                 $response = Http::get('https://smsprima.com/api/api/index', [
-                    'username' => 'sajesh00',
-                    'password' => '12345678900',
+                    'username' => 'sajesh',
+                    'password' => '123456789',
                     'sender' => 'DigitalSMS',
                     'destination' => $teacher->phone,
                     'type' => 1,
@@ -195,10 +195,10 @@ class ViewRoutine extends Component
 
         $message = '';
         if ($sent_teachers) {
-            $message .= 'SMS sent to ' . implode(', ', $sent_teachers) . ' successfully.';
+            $message .= 'SMS sent to ' . implode(', ', $sent_teachers) . ' successfully.'."<br/>";
         }
         if ($failed_teachers) {
-            $message .= 'SMS failed to ' . implode(', ', $failed_teachers) . '.';
+            $message .= '<span class="text-danger">SMS failed to ' . implode(', ', $failed_teachers) . '.</span>';
         }
 
         $this->alert('info', $message);
