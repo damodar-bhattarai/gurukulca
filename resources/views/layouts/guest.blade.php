@@ -21,4 +21,9 @@
             {{ $slot }}
         </div>
     </body>
+
+    <script>
+        console.log('Developed by: Damodar Bhattarai');
+        console.log('Visit at: https://bdamodar.com.np');
+    </script>
 </html>

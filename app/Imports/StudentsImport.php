@@ -26,7 +26,7 @@ class StudentsImport implements ToCollection, SkipsEmptyRows, WithHeadingRow
 
         Validator::make($rows->toArray(), [
             '*.name' => 'required',
-            '*.email' => 'required',
+            '*.email' => 'nullable',
             '*.phone' => 'required|digits:10|unique:users,phone',
             '*.parent_phone' => 'required|digits:10',
             '*.batch' => 'required',

@@ -38,12 +38,13 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-between mt-4">
                 {{-- @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
                 @endif --}}
+                <small class="text-white"><a class="text-white" target="blanc" href="https://bdamodar.com.np">Laravel Developer in Nepal</a></small>
 
                 <x-button class="ml-3">
                     {{ __('Log in') }}

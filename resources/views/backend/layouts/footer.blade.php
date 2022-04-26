@@ -32,6 +32,7 @@
 
 <x-livewire-alert::scripts />
 
+
 @stack('scripts')
 </body>
 <!--end::Body-->
