@@ -151,7 +151,7 @@ class ViewRoutine extends Component
             //starting message (total classes for teacher today)
             // $message = 'You have ' . $classes->count() . ' ' . Str::plural('class', $classes->count()) . " on ".$routinesToSend->routine_date." \r\n";
 
-            $message = "";
+            $message = "Dear " . $teacher->name . ", \r\n";
 
             foreach ($classes as $class) {
                 if (!isset($batches[$class->routine->routine_date][$class->routine->batch->name])) {
@@ -168,6 +168,7 @@ class ViewRoutine extends Component
                     $message .= $batch . "\r\n".'Class ' . implode(', ', $classes) . "\r\n";
                 }
             }
+            $message.="Gurukul CA";
 
             Log::channel('custom')->info('Triggered SMS to ' . $teacher->name . ' at ' . $teacher->phone);
             Log::channel('custom')->info('Message: ' . $message);
